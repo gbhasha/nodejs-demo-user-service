@@ -6,6 +6,7 @@ exports.getUser = async (req, res) => {
     res.status(200).send(user);
   } catch (err) {
     console.log("Error in controller", err.message);
+    res.status(500).send({ message: err.message });
   }
 };
 
@@ -15,6 +16,7 @@ exports.getAllUsers = async (req, res) => {
     res.status(200).send(users);
   } catch (err) {
     console.log("Error in controller", err.message);
+    res.status(500).send({ message: err.message });
   }
 };
 
@@ -27,6 +29,7 @@ exports.createUser = async (req, res) => {
     res.status(200).send(user);
   } catch (err) {
     console.log("Error in controller", err.message);
+    res.status(500).send({ message: err.message });
   }
 };
 
@@ -41,6 +44,7 @@ exports.signIn = async (req, res) => {
     res.status(200).send({ message: "signin failed" });
   } catch (err) {
     console.log("Error in controller", err.message);
+    res.status(500).send({ message: err.message });
   }
 };
 
@@ -52,5 +56,6 @@ exports.updatePassword = async (req, res) => {
     res.status(200).send(user);
   } catch (err) {
     console.log("Error in controller", err.message);
+    res.status(500).send({ message: err.message });
   }
 };
