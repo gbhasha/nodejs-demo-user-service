@@ -1,4 +1,5 @@
 const userModel = require("../models/user");
+const { Types } = require("mongoose");
 
 exports.createUser = async (payload) => {
   try {
@@ -20,6 +21,9 @@ exports.createUser = async (payload) => {
 };
 
 exports.getUser = async (id) => {
+  if (!Types.ObjectId.isValid(id)) {
+    throw new Error ("Invalid ID" );
+  }
   try {
     const user = await userModel.findById(id);
     return user;

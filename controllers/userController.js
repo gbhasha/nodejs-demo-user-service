@@ -1,13 +1,8 @@
 const userService = require("../services/user");
-const { Types } = require("mongoose");
 
 exports.getUser = async (req, res) => {
-  const id = req?.params?.id;
-  if (!Types.ObjectId.isValid(id)) {
-    return res.status(400).send({ message: "Invalid ID" });
-  }
   try {
-    const user = await userService.getUser(id);
+    const user = await userService.getUser(req?.params?.id);
     res.status(200).send(user);
   } catch (err) {
     console.log("Error in controller", err.message);
