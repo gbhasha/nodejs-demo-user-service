@@ -2,11 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const userRoute = require("./routes/userRoute");
 const { logger } = require("./middlewares/middleware");
-const config = require("./.secrets/config.json");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const app = express();
-
-const PORT = 3000;
 
 app.use(express.json());
 // logger
@@ -18,9 +17,12 @@ app.get("/", (req, res) => {
 
 app.use("/users", userRoute);
 
-app.listen(PORT, () => console.log(`App listening at port ${PORT}`));
-
 mongoose
-  .connect(config.db_con_string)
-  .then(() => console.log("connectb to DB"))
+  .connect(process.env.DB_URI)
+  .then(() => {
+    console.log("connected to DB");
+    app.listen(process.env.PORT, () =>
+      console.log(`App listening at port ${process.env.PORT}`)
+    );
+  })
   .catch((e) => console.log("Error connecting to DB", e));
